@@ -15,33 +15,6 @@ public class ProductRepository {
     this.jdbcTemplate = jdbcTemplate;
   }
 
-  /**
-   * Adds new product to the Database
-   *
-   * @param data Product
-   * @return true or false
-   */
- /** public Boolean addFemaleToDataBase(String data) {
-    var successful = false;
-
-    String[] parts = data.split(",");
-    String[] productName = parts[0].split(":");
-    String[] description = parts[1].split(":");
-    String[] imageParts = parts[2].split(":");
-    String image = imageParts[1] + ":" + imageParts[2];
-    String[] productPrice = parts[3].split(":");
-
-    var sql = "INSERT INTO female (name, club, hot, nation, image, age) Values (:name, :club, :hot, :nation: :image, :price)";
-    SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("name", productName[1].replace("\"", "")).addValue("desc", description[1].replace("\"", "")).addValue("image", image.replace("\"", "")).addValue("price", productPrice[1].replace("\"", "").replace("}", ""));
-    int status = jdbcTemplate.update(sql, namedParameters);
-    if (status != 0) {
-      successful = true;
-    }
-
-    return successful;
-  }
-  **/
-
 
   /**
    * Gets all the brands available from database
@@ -52,7 +25,7 @@ public class ProductRepository {
     List<Coffee> arrayList;
 
     arrayList = jdbcTemplate.query(sql,
-        (rs, rowNum) -> new Coffee(rs.getString("product"), rs.getString("brand"), rs.getDouble("price"), rs.getString("image"))
+        (rs, rowNum) -> new Coffee(rs.getString("product"), rs.getString("brand"), rs.getDouble("price"), rs.getString("image"), rs.getString("type"))
   );
     return arrayList;
   }
@@ -61,16 +34,24 @@ public class ProductRepository {
     var sql = "select * from coffees";
     List<Coffee> arrayList;
     arrayList = jdbcTemplate.query(sql,
-        (rs, rowNum) -> new Coffee(rs.getString("product"), rs.getString("brand"), rs.getDouble("price"), rs.getString("image") )
+        (rs, rowNum) -> new Coffee(rs.getString("product"), rs.getString("brand"), rs.getDouble("price"), rs.getString("image"), rs.getString("type") )
     );
     return arrayList;
   }
 
+  public List<Coffee> getCoffee(String name) {
+    var sql = "select * from coffees where product = '" + name + "'";
+    var newString = sql.replace("\"", "'");
+
+    return jdbcTemplate.query(newString,
+        (rs, rowNum) -> new Coffee(rs.getString("product"), rs.getString("brand"), rs.getDouble("price"), rs.getString("image"), rs.getString("type")));
+  }
+
   public List<Object> getUniqueNames() {
-    var sql = "select distinct product from coffees";
+    var sql = "select distinct type from coffees";
     List<Object> arrayList;
     arrayList = jdbcTemplate.query(sql,
-        (rs, rowNum) -> rs.getString("product")
+        (rs, rowNum) -> rs.getString("type")
     );
     return arrayList;
   }
@@ -83,50 +64,3 @@ public class ProductRepository {
     );
     return arrayList;
   }
-  /**
-
-  public List<WeaponSkins> getWeaponSkins(){
-    var sql = "select * from weaponskins";
-    List<WeaponSkins> arrayList;
-    arrayList = jdbcTemplate.query(sql,
-        (rs, rowNum) -> new WeaponSkins(rs.getString("name"), rs.getString("weapon"), rs.getString("type"))
-    );
-    return arrayList;
-  }
- */
-
-  /**
-   * Returns products that are made by a specific brand.
-   * @param
-   * @return Arraylist
-   */
-  /**
-  public List<Product> getLegendSkins(String name) {
-    var sql = "select * from products where brand = '" + name + "'";
-    var newString = sql.replace("\"", "'");
-
-    return jdbcTemplate.query(newString,
-        (rs, rowNum) -> new Product(rs.getInt("id"), rs.getString("brand"), rs.getString("image"), rs.getString("clubType"), rs.getString("model"), rs.getString("altImage"), rs.getString("price"), rs.getString("description"))
-    );
-  }
-
-  public List<Product> getBrandFromDatabase(String name) {
-    var sql = "select * from products where brand = '" + name + "'";
-    List<Product> arrayList;
-
-    arrayList = jdbcTemplate.query(sql,
-        (rs, rowNum) -> new Product(rs.getInt("id"), rs.getString("brand"), rs.getString("image"), rs.getString("clubType"), rs.getString("model"), rs.getString("altImage"), rs.getString("price"), rs.getString("description"))
-    );
-    return arrayList;
-  }
-  public List<Product> getProduct(String id) {
-    var sql = "select * from products where id=" + id + "";
-    List<Product> arrayList;
-
-    arrayList = jdbcTemplate.query(sql,
-        (rs, rowNum) -> new Product(rs.getInt("id"), rs.getString("brand"), rs.getString("image"), rs.getString("clubType"), rs.getString("model"), rs.getString("altImage"), rs.getString("price"), rs.getString("description"))
-    );
-    return arrayList;
-  }
-   **/
-}

@@ -5,12 +5,22 @@ public class Coffee {
   String brand;
   double price;
   String image;
+  String type;
 
-  public Coffee(String name, String brand, double price, String image) {
+  public Coffee(String name, String brand, double price, String image, String type) {
     this.name = name;
     this.brand = brand;
     this.price = price;
     this.image = image;
+    this.type = type;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public String getName() {

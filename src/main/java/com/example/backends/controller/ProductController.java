@@ -27,10 +27,10 @@ public class ProductController {
     return repository.getAllCoffees();
   }
 
-  @GetMapping(value = "/uniqueNames", headers = "Accept=application/json")
+  @GetMapping(value = "/getCoffee/{name}", headers = "Accept=application/json")
   @ResponseBody
-  public List<Object> uniqueNames() {
-    return repository.getUniqueNames();
+  public List<Coffee> indCoffee(@PathVariable String name) {
+    return repository.getCoffee(name);
   }
 
   @GetMapping(value = "/getPrices", headers = "Accept=application/json")
@@ -39,37 +39,10 @@ public class ProductController {
     return repository.getPrices();
   }
 
-  /**
-  @GetMapping(value = "/getAllWeaponSkins", headers = "Accept=application/json")
+  @GetMapping(value = "/uniqueNames", headers = "Accept=application/json")
   @ResponseBody
-  public List<WeaponSkins> getRandom() {
-    return repository.getWeaponSkins();
+  public List<Object> getUniqueNames() {
+    return repository.getUniqueNames();
   }
 
-  /**
-   * Gets a specific product from the database
-   *
-   * @param id id of the specific product
-   * @return The Product
-   */
-  /**
-  @GetMapping(value = "/details/{id}", headers = "Accept=application/json")
-  @ResponseBody
-  public List<Product> getProduct(@PathVariable String id) {
-    return repository.getProducts(id);
-  }
 
-  @GetMapping(value = "/brands/{brand}", headers = "Accept=application/json")
-  @ResponseBody
-  public List<Product> getBrand(@PathVariable String brand) {
-    return repository.getBrandFromDatabase(brand);
-  }
-
-  @GetMapping(value = "/shafts", headers = "Accept=application/json")
-  @ResponseBody
-  public List<Shaft> getAllShafts() {
-    return repository.getShaftsDriver();
-  }
-  **/
-
-}
