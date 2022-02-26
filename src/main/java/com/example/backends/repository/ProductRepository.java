@@ -16,10 +16,6 @@ public class ProductRepository {
   }
 
 
-  /**
-   * Gets all the brands available from database
-   * @return Arraylist
-   */
   public List<Coffee> getPopularCoffees() {
     var sql = "select * from coffees limit 4";
     List<Coffee> arrayList;
