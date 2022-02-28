@@ -1,6 +1,7 @@
 package com.example.backends.controller;
 
 import com.example.backends.model.Coffee;
+import com.example.backends.model.User;
 import com.example.backends.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +45,12 @@ public class ProductController {
   public List<Object> getUniqueNames() {
     return repository.getUniqueNames();
   }
+
+  @PostMapping(value= "/login")
+  @ResponseBody
+  public List<User> checkUser(@RequestBody String line) {
+    return repository.loginUser(line);
+  }
+}
 
 
